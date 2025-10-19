@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог о карьере и поиске работы | CareerFinder</title>
+    <meta name="description" content="Полезные статьи о поиске работы, составлении резюме, подготовке к собеседованию и развитии карьеры. Советы от HR-специалистов.">
+    <meta name="keywords" content="карьерный рост, советы по поиску работы, составление резюме, собеседование, карьера в IT">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect x="5" y="10" width="30" height="24" rx="3" fill="#2d8bcf"/>
+                        <rect x="8" y="13" width="24" height="4" rx="1" fill="white"/>
+                        <rect x="8" y="19" width="18" height="2" rx="1" fill="white" fill-opacity="0.8"/>
+                        <rect x="8" y="23" width="14" height="2" rx="1" fill="white" fill-opacity="0.8"/>
+                        <rect x="8" y="27" width="10" height="2" rx="1" fill="white" fill-opacity="0.8"/>
+                        <path d="M15 5L20 10H10L15 5Z" fill="#2d8bcf"/>
+                    </svg>
+                </div>
+                <span class="brand-title">CareerFinder</span>
+            </a>
+            <nav>
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="vacancies.html" class="nav-link">Вакансии</a>
+                <a href="companies.html" class="nav-link">Компании</a>
+                <a href="events.html" class="nav-link">Мероприятия</a>
+                <a href="blog.html" class="nav-link active">Блог</a>
+            </nav>
+            <div class="controls" id="authControls">
+                <select id="themeSelect">
+                    <option value="light">☀️ Светлая</option>
+                    <option value="dark">🌙 Тёмная</option>
+                </select>
+                <button class="btn" onclick="openModal('loginModal')">Войти</button>
+                <button class="btn primary" onclick="openModal('registerModal')">Регистрация</button>
+            </div>
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <span id="userName"></span>
+                <button class="btn" onclick="logout()">Выйти</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <div class="page-header">
+            <h1>Блог о карьере</h1>
+            <p class="page-subtitle">Полезные статьи и советы по поиску работы и развитию карьеры</p>
+        </div>
+
+        <div class="blog-filters">
+            <button class="filter-btn active" onclick="filterBlog('all')">Все статьи</button>
+            <button class="filter-btn" onclick="filterBlog('resume')">Резюме</button>
+            <button class="filter-btn" onclick="filterBlog('interview')">Собеседование</button>
+            <button class="filter-btn" onclick="filterBlog('career')">Карьера</button>
+            <button class="filter-btn" onclick="filterBlog('skills')">Навыки</button>
+        </div>
+
+        <div class="blog-grid" id="blogGrid">
+            <article class="blog-card" data-category="resume">
+                <div class="blog-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                    <div class="blog-category">Резюме</div>
+                </div>
+                <div class="blog-content">
+                    <h2><a href="blog-post.html" class="blog-title">10 ошибок в резюме, которые мешают найти работу</a></h2>
+                    <p class="blog-excerpt">Разбираем самые распространенные ошибки, которые допускают соискатели при составлении резюме и как их избежать.</p>
+                    <div class="blog-meta">
+                        <span class="blog-date">📅 15 декабря 2024</span>
+                        <span class="blog-reading-time">⏱️ 5 мин чтения</span>
+                        <span class="blog-views">👁️ 2.4K</span>
+                    </div>
+                    <div class="blog-tags">
+                        <span class="tag">резюме</span>
+                        <span class="tag">советы</span>
+                        <span class="tag">HR</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="interview">
+                <div class="blog-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                    <div class="blog-category">Собеседование</div>
+                </div>
+                <div class="blog-content">
+                    <h2><a href="blog-post.html" class="blog-title">Как успешно пройти техническое собеседование в IT</a></h2>
+                    <p class="blog-excerpt">Практические советы и примеры задач для подготовки к техническим собеседованиям в IT-компаниях.</p>
+                    <div class="blog-meta">
+                        <span class="blog-date">📅 12 декабря 2024</span>
+                        <span class="blog-reading-time">⏱️ 7 мин чтения</span>
+                        <span class="blog-views">👁️ 3.1K</span>
+                    </div>
+                    <div class="blog-tags">
+                        <span class="tag">IT</span>
+                        <span class="tag">собеседование</span>
+                        <span class="tag">техническое</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="career">
+                <div class="blog-image" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                    <div class="blog-category">Карьера</div>
+                </div>
+                <div class="blog-content">
+                    <h2><a href="blog-post.html" class="blog-title">Карьерный рост: от Junior до Senior за 3 года</a></h2>
+                    <p class="blog-excerpt">Реальная история разработчика, который прошел путь от стажера до старшего специалиста и делится своим опытом.</p>
+                    <div class="blog-meta">
+                        <span class="blog-date">📅 10 декабря 2024</span>
+                        <span class="blog-reading-time">⏱️ 6 мин чтения</span>
+                        <span class="blog-views">👁️ 1.8K</span>
+                    </div>
+                    <div class="blog-tags">
+                        <span class="tag">карьера</span>
+                        <span class="tag">рост</span>
+                        <span class="tag">опыт</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="skills">
+                <div class="blog-image" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+                    <div class="blog-category">Навыки</div>
+                </div>
+                <div class="blog-content">
+                    <h2><a href="blog-post.html" class="blog-title">Soft Skills, которые ценят работодатели в 2024</a></h2>
+                    <p class="blog-excerpt">Какие гибкие навыки наиболее востребованы на рынке труда и как их развивать для успешной карьеры.</p>
+                    <div class="blog-meta">
+                        <span class="blog-date">📅 8 декабря 2024</span>
+                        <span class="blog-reading-time">⏱️ 4 мин чтения</span>
+                        <span class="blog-views">👁️ 2.1K</span>
+                    </div>
+                    <div class="blog-tags">
+                        <span class="tag">soft skills</span>
+                        <span class="tag">развитие</span>
+                        <span class="tag">2024</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="resume">
+                <div class="blog-image" style="background: linear-gradient(135deg, #fa709a, #fee140);">
+                    <div class="blog-category">Резюме</div>
+                </div>
+                <div class="blog-content">
+                    <h2><a href="blog-post.html" class="blog-title">Как составить резюме для удаленной работы</a></h2>
+                    <p class="blog-excerpt">Особенности составления резюме для удаленных позиций: на что обращают внимание рекрутеры при отборе кандидатов.</p>
+                    <div class="blog-meta">
+                        <span class="blog-date">📅 5 декабря 2024</span>
+                        <span class="blog-reading-time">⏱️ 5 мин чтения</span>
+                        <span class="blog-views">👁️ 1.5K</span>
+                    </div>
+                    <div class="blog-tags">
+                        <span class="tag">удаленка</span>
+                        <span class="tag">резюме</span>
+                        <span class="tag">remote</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="interview">
+                <div class="blog-image" style="background: linear-gradient(135deg, #a8edea, #fed6e3);">
+                    <div class="blog-category">Собеседование</div>
+                </div>
+                <div class="blog-content">
+                    <h2><a href="blog-post.html" class="blog-title">Вопросы, которые стоит задать на собеседовании</a></h2>
+                    <p class="blog-excerpt">Список умных вопросов, которые покажут вашу заинтересованность и помогут понять, подходит ли вам компания.</p>
+                    <div class="blog-meta">
+                        <span class="blog-date">📅 3 декабря 2024</span>
+                        <span class="blog-reading-time">⏱️ 3 мин чтения</span>
+                        <span class="blog-views">👁️ 1.2K</span>
+                    </div>
+                    <div class="blog-tags">
+                        <span class="tag">собеседование</span>
+                        <span class="tag">вопросы</span>
+                        <span class="tag">советы</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="pagination">
+            <button class="btn btn-outline" disabled>← Назад</button>
+            <span class="pagination-info">Страница 1 из 3</span>
+            <button class="btn btn-outline" onclick="loadNextPage()">Вперед →</button>
+        </div>
+
+        <section class="newsletter-section">
+            <div class="newsletter-card">
+                <h3>📧 Подпишитесь на рассылку</h3>
+                <p>Получайте свежие статьи о карьере и советы по поиску работы</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Ваш email" id="newsletterEmail">
+                    <button class="btn primary" onclick="subscribeNewsletter()">Подписаться</button>
+                </div>
+                <small>Отправляя email, вы соглашаетесь с нашей политикой конфиденциальности</small>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CareerFinder</h4>
+                    <p>Лучшая платформа для поиска работы и развития карьеры</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <a href="index.html">Главная</a>
+                    <a href="vacancies.html">Вакансии</a>
+                    <a href="companies.html">Компании</a>
+                    <a href="events.html">Мероприятия</a>
+                    <a href="blog.html">Блог</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Полезное</h4>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Контакты</a>
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="terms.html">Условия использования</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <a href="mailto:info@careerfinder.ru">info@careerfinder.ru</a>
+                    <a href="tel:+78001234567">8 (800) 123-45-67</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CareerFinder. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="blog.js"></script>
+</body>
+</html>

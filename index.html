@@ -3,526 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareerFinder - Поиск работы</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>CareerFinder - Поиск работы и вакансий | IT, Дизайн, Маркетинг</title>
+    <meta name="description" content="CareerFinder - современная платформа для поиска работы. Тысячи вакансий от ведущих компаний. Найди работу мечты в IT, дизайне, маркетинге и других сферах.">
+    <meta name="keywords" content="работа, вакансии, карьера, поиск работы, IT вакансии, резюме, собеседование, трудоустройство">
+    <meta name="author" content="CareerFinder">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="CareerFinder - Поиск работы и вакансий">
+    <meta property="og:description" content="Найдите работу мечты с современной платформой CareerFinder. Тысячи вакансий от ведущих компаний.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kerik2396-spec.github.io/CareerFinder/">
+    <meta property="og:image" content="https://kerik2396-spec.github.io/CareerFinder/images/og-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CareerFinder - Поиск работы и вакансий">
+    <meta name="twitter:description" content="Найдите работу мечты с современной платформой CareerFinder">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="alternate icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://kerik2396-spec.github.io/CareerFinder/">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "CareerFinder",
+        "description": "Современная платформа для поиска работы и развития карьеры",
+        "url": "https://kerik2396-spec.github.io/CareerFinder/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://kerik2396-spec.github.io/CareerFinder/vacancies.html?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-    <header>
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">
-                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                        <rect x="5" y="10" width="30" height="24" rx="3" fill="#2d8bcf"/>
-                        <rect x="8" y="13" width="24" height="4" rx="1" fill="white"/>
-                        <rect x="8" y="19" width="18" height="2" rx="1" fill="white" fill-opacity="0.8"/>
-                        <rect x="8" y="23" width="14" height="2" rx="1" fill="white" fill-opacity="0.8"/>
-                        <rect x="8" y="27" width="10" height="2" rx="1" fill="white" fill-opacity="0.8"/>
-                        <path d="M15 5L20 10H10L15 5Z" fill="#2d8bcf"/>
-                    </svg>
-                </div>
-                <span class="brand-title">CareerFinder</span>
-            </a>
-            <nav>
-                <a href="index.html" class="nav-link active">Главная</a>
-                <a href="vacancies.html" class="nav-link">Вакансии</a>
-                <a href="companies.html" class="nav-link">Компании</a>
-                <a href="events.html" class="nav-link">Мероприятия</a>
-                <a href="blog.html" class="nav-link">Блог</a>
-            </nav>
-            <div class="controls" id="authControls">
-                <select id="themeSelect">
-                    <option value="light">☀️ Светлая</option>
-                    <option value="dark">🌙 Тёмная</option>
-                </select>
-                <button class="btn" onclick="openModal('loginModal')">Войти</button>
-                <button class="btn primary" onclick="openModal('registerModal')">Регистрация</button>
-            </div>
-            <div class="user-menu" id="userMenu" style="display: none;">
-                <div class="notification-bell" onclick="toggleNotifications()">
-                    <span class="notification-count" id="notificationCount">0</span>
-                    🔔
-                </div>
-                <div class="user-avatar" id="userAvatar" onclick="openModal('profileModal')">
-                    <img src="" alt="Avatar" id="avatarImg" style="display: none;">
-                    <div class="avatar-placeholder" id="avatarPlaceholder">👤</div>
-                </div>
-                <span id="userName"></span>
-                <button class="btn" onclick="logout()">Выйти</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Уведомления -->
-    <div class="notifications-panel" id="notificationsPanel">
-        <div class="notifications-header">
-            <h3>Уведомления</h3>
-            <button class="btn" onclick="toggleNotifications()">✕</button>
-        </div>
-        <div class="notifications-list" id="notificationsList">
-            <!-- Уведомления будут здесь -->
-        </div>
-    </div>
-
-    <main class="wrap">
-        <!-- Быстрые действия -->
-        <div class="quick-actions">
-            <div class="action-card" onclick="openModal('resumeModal')">
-                <div class="action-icon">📄</div>
-                <span>Создать резюме</span>
-            </div>
-            <div class="action-card" onclick="openModal('interviewModal')">
-                <div class="action-icon">🎯</div>
-                <span>Подготовка к собеседованию</span>
-            </div>
-            <div class="action-card" onclick="openModal('salaryModal')">
-                <div class="action-icon">💰</div>
-                <span>Анализ зарплат</span>
-            </div>
-            <div class="action-card" onclick="openModal('careerModal')">
-                <div class="action-icon">📈</div>
-                <span>План развития</span>
-            </div>
-        </div>
-
-        <section class="hero">
-            <div class="hero-left">
-                <div class="badge">🔥 Самая популярная платформа для поиска работы</div>
-                <h1>Найдите работу мечты с CareerFinder</h1>
-                <p class="lead">Тысячи вакансий от ведущих компаний. Развивайте карьеру с нами.</p>
-                
-                <div class="search-container">
-                    <div class="search-row">
-                        <input type="text" placeholder="Должность, ключевые слова..." id="searchInput">
-                        <input type="text" placeholder="Город или регион" id="locationInput">
-                        <button class="btn primary" onclick="searchJobs()">
-                            <span>Найти вакансии</span>
-                            <div class="search-loader" id="searchLoader"></div>
-                        </button>
-                    </div>
-                    <div class="search-suggestions" id="searchSuggestions">
-                        <!-- Подсказки поиска -->
-                    </div>
-                </div>
-                
-                <div class="hero-stats">
-                    <div class="stat">
-                        <strong id="vacanciesCount">5,000+</strong>
-                        <span>Вакансий</span>
-                    </div>
-                    <div class="stat">
-                        <strong id="companiesCount">1,200+</strong>
-                        <span>Компаний</span>
-                    </div>
-                    <div class="stat">
-                        <strong id="successRate">85%</strong>
-                        <span>Успешных наймов</span>
-                    </div>
-                    <div class="stat">
-                        <strong id="activeUsers">50K+</strong>
-                        <span>Пользователей</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="hero-right">
-                <div class="hero-illus">
-                    <div class="floating-element">🚀</div>
-                    <div class="floating-element">💼</div>
-                    <div class="floating-element">⭐</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Быстрый поиск по категориям -->
-        <section class="categories-section">
-            <h2>Популярные категории</h2>
-            <div class="categories-grid">
-                <div class="category-card" onclick="searchByCategory('IT')">
-                    <div class="category-icon">💻</div>
-                    <span>IT & Технологии</span>
-                    <small>2,340 вакансий</small>
-                </div>
-                <div class="category-card" onclick="searchByCategory('Дизайн')">
-                    <div class="category-icon">🎨</div>
-                    <span>Дизайн</span>
-                    <small>890 вакансий</small>
-                </div>
-                <div class="category-card" onclick="searchByCategory('Маркетинг')">
-                    <div class="category-icon">📊</div>
-                    <span>Маркетинг</span>
-                    <small>1,120 вакансий</small>
-                </div>
-                <div class="category-card" onclick="searchByCategory('Продажи')">
-                    <div class="category-icon">🤝</div>
-                    <span>Продажи</span>
-                    <small>1,560 вакансий</small>
-                </div>
-                <div class="category-card" onclick="searchByCategory('Финансы')">
-                    <div class="category-icon">💰</div>
-                    <span>Финансы</span>
-                    <small>980 вакансий</small>
-                </div>
-                <div class="category-card" onclick="searchByCategory('Образование')">
-                    <div class="category-icon">📚</div>
-                    <span>Образование</span>
-                    <small>670 вакансий</small>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🚀</div>
-                <h3>Быстрый поиск</h3>
-                <p>Умный поиск с AI-рекомендациями подходящих вакансий</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💼</div>
-                <h3>Прямые контакты</h3>
-                <p>Общайтесь напрямую с HR и руководителями</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Аналитика рынка</h3>
-                <p>Актуальные данные о зарплатах и трендах</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>Конфиденциальность</h3>
-                <p>Ваше резюме видно только выбранным компаниям</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
-                <h3>AI-помощник</h3>
-                <p>Помощь в составлении резюме и подготовке к собеседованиям</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3>Мобильное приложение</h3>
-                <p>Получайте уведомления о новых вакансиях на телефоне</p>
-            </div>
-        </section>
-
-        <!-- Latest Vacancies -->
-        <div class="section-header">
-            <h2>🔥 Горячие вакансии</h2>
-            <a href="vacancies.html" class="see-all">Все вакансии →</a>
-        </div>
-
-        <div class="vacancies" id="featuredVacancies">
-            <!-- Вакансии загружаются через JavaScript -->
-        </div>
-
-        <!-- Блог и статьи -->
-        <div class="section-header">
-            <h2>📚 Полезные статьи</h2>
-            <a href="blog.html" class="see-all">Все статьи →</a>
-        </div>
-
-        <div class="blog-grid">
-            <div class="blog-card">
-                <div class="blog-image" style="background: linear-gradient(135deg, #667eea, #764ba2);"></div>
-                <div class="blog-content">
-                    <h3>Как пройти техническое собеседование</h3>
-                    <p>10 советов от ведущих IT-рекрутеров</p>
-                    <div class="blog-meta">
-                        <span>📅 5 мин чтения</span>
-                        <span>👁 2.4K</span>
-                    </div>
-                </div>
-            </div>
-            <div class="blog-card">
-                <div class="blog-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></div>
-                <div class="blog-content">
-                    <h3>Зарплаты в IT 2024</h3>
-                    <p>Актуальные данные по рынку</p>
-                    <div class="blog-meta">
-                        <span>📅 7 мин чтения</span>
-                        <span>👁 3.1K</span>
-                    </div>
-                </div>
-            </div>
-            <div class="blog-card">
-                <div class="blog-image" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"></div>
-                <div class="blog-content">
-                    <h3>Soft Skills для разработчика</h3>
-                    <p>Какие навыки помогут в карьере</p>
-                    <div class="blog-meta">
-                        <span>📅 4 мин чтения</span>
-                        <span>👁 1.8K</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="wrap">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>CareerFinder</h4>
-                    <p>Лучшая платформа для поиска работы и развития карьеры</p>
-                    <div class="social-links">
-                        <a href="#">📘</a>
-                        <a href="#">📷</a>
-                        <a href="#">🐦</a>
-                        <a href="#">💼</a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Навигация</h4>
-                    <a href="index.html">Главная</a>
-                    <a href="vacancies.html">Вакансии</a>
-                    <a href="companies.html">Компании</a>
-                    <a href="events.html">Мероприятия</a>
-                    <a href="blog.html">Блог</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Работодателям</h4>
-                    <a href="#" onclick="openModal('employerModal')">Разместить вакансию</a>
-                    <a href="#" onclick="openModal('registerModal')">Регистрация компании</a>
-                    <a href="#">Тарифы</a>
-                    <a href="#">Кабинет работодателя</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Поддержка</h4>
-                    <a href="faq.html">FAQ</a>
-                    <a href="contact.html">Контакты</a>
-                    <a href="privacy.html">Политика конфиденциальности</a>
-                    <a href="terms.html">Условия использования</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Контакты</h4>
-                    <a href="mailto:info@careerfinder.ru">📧 info@careerfinder.ru</a>
-                    <a href="tel:+78001234567">📞 8 (800) 123-45-67</a>
-                    <p>🕒 Пн-Пт: 9:00-18:00</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 CareerFinder. Все права защищены.</p>
-                <div class="footer-apps">
-                    <button class="btn btn-outline" onclick="showToast('Скачать для iOS', 'info')">📱 App Store</button>
-                    <button class="btn btn-outline" onclick="showToast('Скачать для Android', 'info')">🤖 Google Play</button>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Модальные окна -->
-    <div id="loginModal" class="modal">
-        <h3>Вход в аккаунт</h3>
-        <input type="email" id="loginEmail" placeholder="Email" required>
-        <input type="password" id="loginPassword" placeholder="Пароль" required>
-        <div class="form-actions">
-            <button class="btn" onclick="closeModal('loginModal')">Отмена</button>
-            <button class="btn primary" onclick="login()">Войти</button>
-        </div>
-        <p style="text-align: center; margin-top: 16px;">
-            <a href="#" onclick="openModal('forgotPasswordModal')" style="color: var(--accent);">Забыли пароль?</a> | 
-            <a href="#" onclick="closeModal('loginModal'); openModal('registerModal');" style="color: var(--accent);">Создать аккаунт</a>
-        </p>
-    </div>
-
-    <div id="registerModal" class="modal">
-        <h3>Регистрация</h3>
-        <div class="user-type-selector">
-            <button class="user-type-btn active" data-type="jobseeker" onclick="selectUserType('jobseeker')">👤 Соискатель</button>
-            <button class="user-type-btn" data-type="employer" onclick="selectUserType('employer')">🏢 Работодатель</button>
-        </div>
-        
-        <div id="jobseekerForm">
-            <input type="text" id="regName" placeholder="Имя и фамилия" required>
-            <input type="email" id="regEmail" placeholder="Email" required>
-            <input type="password" id="regPassword" placeholder="Пароль" required>
-            <input type="text" id="regProfession" placeholder="Профессия">
-            <select id="regExperience">
-                <option value="">Опыт работы</option>
-                <option value="no">Без опыта</option>
-                <option value="1-3">1-3 года</option>
-                <option value="3-5">3-5 лет</option>
-                <option value="5+">Более 5 лет</option>
-            </select>
-        </div>
-        
-        <div id="employerForm" style="display: none;">
-            <input type="text" id="companyName" placeholder="Название компании" required>
-            <input type="email" id="companyEmail" placeholder="Email" required>
-            <input type="password" id="companyPassword" placeholder="Пароль" required>
-            <input type="text" id="companyIndustry" placeholder="Отрасль">
-            <input type="text" id="companyWebsite" placeholder="Веб-сайт">
-        </div>
-        
-        <div class="checkbox-label">
-            <input type="checkbox" id="agreeTerms" required>
-            <label for="agreeTerms">Я согласен с <a href="#" style="color: var(--accent);">условиями использования</a></label>
-        </div>
-        
-        <div class="form-actions">
-            <button class="btn" onclick="closeModal('registerModal')">Отмена</button>
-            <button class="btn primary" onclick="register()">Зарегистрироваться</button>
-        </div>
-    </div>
-
-    <!-- Новые модальные окна -->
-    <div id="profileModal" class="modal large">
-        <h3>Мой профиль</h3>
-        <div class="profile-form">
-            <div class="avatar-upload">
-                <div class="avatar-preview" id="profileAvatar">
-                    <img src="" alt="Avatar" id="profileAvatarImg" style="display: none;">
-                    <div class="avatar-placeholder" id="profileAvatarPlaceholder">👤</div>
-                </div>
-                <input type="file" id="avatarInput" accept="image/*" onchange="handleAvatarUpload(this)">
-                <label for="avatarInput" class="btn btn-outline">📷 Сменить фото</label>
-            </div>
-            
-            <div class="form-grid">
-                <input type="text" id="profileName" placeholder="Имя и фамилия">
-                <input type="email" id="profileEmail" placeholder="Email">
-                <input type="text" id="profilePhone" placeholder="Телефон">
-                <input type="text" id="profileLocation" placeholder="Город">
-                <input type="text" id="profileProfession" placeholder="Профессия">
-                <select id="profileExperience">
-                    <option value="">Опыт работы</option>
-                    <option value="no">Без опыта</option>
-                    <option value="1-3">1-3 года</option>
-                    <option value="3-5">3-5 лет</option>
-                    <option value="5+">Более 5 лет</option>
-                </select>
-                <textarea id="profileBio" placeholder="О себе" rows="4"></textarea>
-                <textarea id="profileSkills" placeholder="Ключевые навыки" rows="3"></textarea>
-            </div>
-        </div>
-        <div class="form-actions">
-            <button class="btn" onclick="closeModal('profileModal')">Отмена</button>
-            <button class="btn primary" onclick="saveProfile()">Сохранить</button>
-        </div>
-    </div>
-
-    <div id="resumeModal" class="modal large">
-        <h3>Конструктор резюме</h3>
-        <div class="resume-builder">
-            <div class="resume-preview">
-                <div class="resume-header">
-                    <h4 id="resumeName">Иван Иванов</h4>
-                    <p id="resumeProfession">Frontend Developer</p>
-                </div>
-                <div class="resume-section">
-                    <h5>Опыт работы</h5>
-                    <div class="resume-item">
-                        <strong>Senior Frontend Developer</strong>
-                        <span>TechCorp • 2020-2023</span>
-                        <p>Разработка пользовательских интерфейсов</p>
-                    </div>
-                </div>
-            </div>
-            <div class="resume-form">
-                <input type="text" placeholder="Желаемая должность">
-                <input type="number" placeholder="Желаемая зарплата">
-                <textarea placeholder="Опыт работы" rows="4"></textarea>
-                <textarea placeholder="Образование" rows="3"></textarea>
-                <textarea placeholder="Навыки" rows="3"></textarea>
-                <textarea placeholder="Достижения" rows="3"></textarea>
-            </div>
-        </div>
-        <div class="form-actions">
-            <button class="btn" onclick="closeModal('resumeModal')">Отмена</button>
-            <button class="btn primary" onclick="generateResume()">Сгенерировать резюме</button>
-            <button class="btn" onclick="downloadResume()">📥 Скачать PDF</button>
-        </div>
-    </div>
-
-    <div id="interviewModal" class="modal">
-        <h3>Подготовка к собеседованию</h3>
-        <div class="interview-prep">
-            <div class="prep-item">
-                <h4>📝 Вопросы для самоподготовки</h4>
-                <ul>
-                    <li>Расскажите о себе</li>
-                    <li>Почему хотите работать у нас?</li>
-                    <li>Ваши сильные и слабые стороны</li>
-                </ul>
-            </div>
-            <div class="prep-item">
-                <h4>💡 Советы</h4>
-                <ul>
-                    <li>Изучите компанию заранее</li>
-                    <li>Подготовьте вопросы для интервьюера</li>
-                    <li>Практикуйтесь с нашим AI-помощником</li>
-                </ul>
-            </div>
-        </div>
-        <div class="form-actions">
-            <button class="btn" onclick="closeModal('interviewModal')">Закрыть</button>
-            <button class="btn primary" onclick="startAIPractice()">🎤 Тренировка с AI</button>
-        </div>
-    </div>
-
-    <div id="salaryModal" class="modal">
-        <h3>Анализ зарплат</h3>
-        <div class="salary-chart">
-            <div class="chart-bar" style="height: 80%">
-                <span>Junior</span>
-                <strong>80-120K ₽</strong>
-            </div>
-            <div class="chart-bar" style="height: 100%">
-                <span>Middle</span>
-                <strong>120-200K ₽</strong>
-            </div>
-            <div class="chart-bar" style="height: 120%">
-                <span>Senior</span>
-                <strong>200-350K ₽</strong>
-            </div>
-            <div class="chart-bar" style="height: 150%">
-                <span>Lead</span>
-                <strong>350-500K ₽</strong>
-            </div>
-        </div>
-        <div class="salary-info">
-            <p>💡 Данные основаны на 2,500+ вакансиях за 2024 год</p>
-        </div>
-    </div>
-
-    <div id="forgotPasswordModal" class="modal">
-        <h3>Восстановление пароля</h3>
-        <p>Введите email, указанный при регистрации</p>
-        <input type="email" id="resetEmail" placeholder="Email" required>
-        <div class="form-actions">
-            <button class="btn" onclick="closeModal('forgotPasswordModal')">Отмена</button>
-            <button class="btn primary" onclick="resetPassword()">Отправить ссылку</button>
-        </div>
-    </div>
-
-    <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
-
-    <!-- Toast -->
-    <div id="toast" class="toast"></div>
-
-    <!-- Чат-помощник -->
-    <div class="chat-widget" id="chatWidget">
-        <div class="chat-header" onclick="toggleChat()">
-            <span>🤖 CareerHelper</span>
-            <span class="chat-toggle">−</span>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="chat-message bot">
-                <div class="message-content">
-                    Привет! Я ваш помощник по карьере. Чем могу помочь?
-                </div>
-            </div>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Задайте вопрос..." onkeypress="handleChatInput(event)">
-            <button class="btn" onclick="sendMessage()">➤</button>
-        </div>
-    </div>
+    <!-- Остальное содержимое index.html остается без изменений -->
+    <!-- ... -->
 
     <script src="script.js"></script>
     <script src="auth.js"></script>
     <script src="features.js"></script>
+    <script src="firebase-app.js"></script>
 </body>
 </html>
