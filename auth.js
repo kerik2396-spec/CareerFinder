@@ -1,4 +1,4 @@
-// Система аутентификации и регистрации
+// Система аутентификации и регистрации (обновленная)
 class AuthSystem {
     constructor() {
         this.currentUser = null;
@@ -9,6 +9,7 @@ class AuthSystem {
     init() {
         this.checkAuthStatus();
         this.setupEventListeners();
+        this.loadUserProfile();
     }
 
     setupEventListeners() {
@@ -43,6 +44,12 @@ class AuthSystem {
     // Регистрация нового пользователя
     register() {
         const isJobseeker = document.querySelector('[data-type="jobseeker"]').classList.contains('active');
+        const agreeTerms = document.getElementById('agreeTerms').checked;
+
+        if (!agreeTerms) {
+            showToast('Необходимо согласие с условиями использования', 'error');
+            return;
+        }
         
         let userData;
         if (isJobseeker) {
@@ -52,8 +59,9 @@ class AuthSystem {
                 email: document.getElementById('regEmail').value,
                 password: document.getElementById('regPassword').value,
                 profession: document.getElementById('regProfession').value,
-                skills: document.getElementById('regSkills').value,
-                registrationDate: new Date().toISOString()
+                experience: document.getElementById('regExperience').value,
+                registrationDate: new Date().toISOString(),
+                profileComplete: false
             };
         } else {
             userData = {
@@ -62,14 +70,20 @@ class AuthSystem {
                 email: document.getElementById('companyEmail').value,
                 password: document.getElementById('companyPassword').value,
                 industry: document.getElementById('companyIndustry').value,
-                description: document.getElementById('companyDescription').value,
-                registrationDate: new Date().toISOString()
+                website: document.getElementById('companyWebsite').value,
+                registrationDate: new Date().toISOString(),
+                profileComplete: false
             };
         }
 
         // Валидация
         if (!userData.email || !userData.password) {
             showToast('Заполните обязательные поля', 'error');
+            return;
+        }
+
+        if (userData.password.length < 6) {
+            showToast('Пароль должен содержать минимум 6 символов', 'error');
             return;
         }
 
@@ -87,7 +101,13 @@ class AuthSystem {
         this.currentUser = userData;
         localStorage.setItem('careerFinderCurrentUser', JSON.stringify(userData));
 
-        showToast(`Добро пожаловать${isJobseeker ? '' : ', компания ' + userData.companyName}!`, 'success');
+        // Добавляем уведомление
+        careerFeatures.addNotification(
+            'Добро пожаловать!', 
+            `Регистрация ${isJobseeker ? 'соискателя' : 'компании'} прошла успешно`,
+            'success'
+        );
+
         closeModal('registerModal');
         this.updateUI();
     }
@@ -107,7 +127,13 @@ class AuthSystem {
         if (user) {
             this.currentUser = user;
             localStorage.setItem('careerFinderCurrentUser', JSON.stringify(user));
-            showToast(`С возвращением${user.type === 'jobseeker' ? '' : ', ' + user.companyName}!`, 'success');
+            
+            careerFeatures.addNotification(
+                'С возвращением!',
+                `Рады видеть вас снова${user.type === 'jobseeker' ? '' : ', ' + user.companyName}`,
+                'success'
+            );
+            
             closeModal('loginModal');
             this.updateUI();
         } else {
@@ -119,7 +145,9 @@ class AuthSystem {
     logout() {
         this.currentUser = null;
         localStorage.removeItem('careerFinderCurrentUser');
-        showToast('Вы вышли из системы', 'info');
+        
+        careerFeatures.addNotification('До свидания!', 'Вы вышли из системы', 'info');
+        
         this.updateUI();
     }
 
@@ -130,6 +158,66 @@ class AuthSystem {
             this.currentUser = JSON.parse(savedUser);
             this.updateUI();
         }
+    }
+
+    // Загрузка профиля в форму
+    loadUserProfile() {
+        if (this.currentUser) {
+            if (this.currentUser.type === 'jobseeker') {
+                document.getElementById('profileName').value = this.currentUser.name || '';
+                document.getElementById('profileEmail').value = this.currentUser.email || '';
+                document.getElementById('profileProfession').value = this.currentUser.profession || '';
+                document.getElementById('profileExperience').value = this.currentUser.experience || '';
+            } else {
+                document.getElementById('profileName').value = this.currentUser.companyName || '';
+                document.getElementById('profileEmail').value = this.currentUser.email || '';
+            }
+            
+            // Загружаем аватар
+            if (this.currentUser.avatar) {
+                careerFeatures.updateAvatar(this.currentUser);
+            }
+        }
+    }
+
+    // Сохранение профиля
+    saveProfile() {
+        if (!this.currentUser) return;
+
+        const updatedUser = { ...this.currentUser };
+        
+        if (this.currentUser.type === 'jobseeker') {
+            updatedUser.name = document.getElementById('profileName').value;
+            updatedUser.email = document.getElementById('profileEmail').value;
+            updatedUser.phone = document.getElementById('profilePhone').value;
+            updatedUser.location = document.getElementById('profileLocation').value;
+            updatedUser.profession = document.getElementById('profileProfession').value;
+            updatedUser.experience = document.getElementById('profileExperience').value;
+            updatedUser.bio = document.getElementById('profileBio').value;
+            updatedUser.skills = document.getElementById('profileSkills').value;
+            updatedUser.profileComplete = true;
+        } else {
+            updatedUser.companyName = document.getElementById('profileName').value;
+            updatedUser.email = document.getElementById('profileEmail').value;
+            updatedUser.phone = document.getElementById('profilePhone').value;
+            updatedUser.location = document.getElementById('profileLocation').value;
+            updatedUser.profileComplete = true;
+        }
+
+        // Обновляем в массиве пользователей
+        const userIndex = this.users.findIndex(u => u.email === this.currentUser.email);
+        if (userIndex !== -1) {
+            this.users[userIndex] = updatedUser;
+            localStorage.setItem('careerFinderUsers', JSON.stringify(this.users));
+        }
+
+        // Обновляем текущего пользователя
+        this.currentUser = updatedUser;
+        localStorage.setItem('careerFinderCurrentUser', JSON.stringify(updatedUser));
+
+        careerFeatures.addNotification('Профиль обновлён', 'Изменения успешно сохранены', 'success');
+        closeModal('profileModal');
+        this.updateUI();
     }
 
     // Обновление интерфейса
@@ -143,13 +231,13 @@ class AuthSystem {
             userMenu.style.display = 'flex';
             
             if (this.currentUser.type === 'jobseeker') {
-                userName.textContent = this.currentUser.name;
+                userName.textContent = this.currentUser.name || 'Пользователь';
             } else {
-                userName.textContent = this.currentUser.companyName;
+                userName.textContent = this.currentUser.companyName || 'Компания';
             }
 
-            // Обновляем навигацию для работодателей
             this.updateNavigationForEmployer();
+            this.loadUserProfile();
         } else {
             authControls.style.display = 'flex';
             userMenu.style.display = 'none';
@@ -159,14 +247,16 @@ class AuthSystem {
     // Обновление навигации для работодателей
     updateNavigationForEmployer() {
         if (this.currentUser?.type === 'employer') {
-            // Можно добавить специальные пункты меню для работодателей
-            const nav = document.querySelector('nav');
-            const employerLink = document.createElement('a');
-            employerLink.href = '#';
-            employerLink.className = 'nav-link';
-            employerLink.textContent = 'Мои вакансии';
-            employerLink.onclick = () => openModal('employerModal');
-            nav.appendChild(employerLink);
+            let employerLink = document.querySelector('.employer-dashboard-link');
+            if (!employerLink) {
+                employerLink = document.createElement('a');
+                employerLink.className = 'nav-link employer-dashboard-link';
+                employerLink.textContent = 'Кабинет';
+                employerLink.onclick = () => openModal('employerModal');
+                
+                const nav = document.querySelector('nav');
+                nav.appendChild(employerLink);
+            }
         }
     }
 
@@ -198,27 +288,9 @@ function logout() {
     authSystem.logout();
 }
 
+function saveProfile() {
+    authSystem.saveProfile();
+}
+
 // Инициализация системы аутентификации
 const authSystem = new AuthSystem();
-
-// Дополнительные функции для работы с вакансиями
-function addToFavorites(button) {
-    if (!authSystem.requireAuth()) return;
-    
-    button.textContent = button.textContent.includes('🤍') ? '❤️ В избранном' : '🤍 В избранное';
-    showToast('Вакансия добавлена в избранное', 'success');
-}
-
-function applyToJob() {
-    if (!authSystem.requireAuth()) return;
-    
-    showToast('Отклик отправлен успешно!', 'success');
-    closeModal('applyModal');
-}
-
-function postJob() {
-    if (!authSystem.requireAuth()) return;
-    
-    showToast('Вакансия опубликована!', 'success');
-    closeModal('employerModal');
-}
