@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вакансии - CareerFinder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="avatar-preview">
+                    <div class="avatar-placeholder">💼</div>
+                </div>
+                <span class="brand-title">CareerFinder</span>
+            </a>
+            <nav>
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="vacancies.html" class="nav-link active">Вакансии</a>
+                <a href="companies.html" class="nav-link">Компании</a>
+                <a href="events.html" class="nav-link">Мероприятия</a>
+            </nav>
+            <div class="controls">
+                <select id="themeSelect">
+                    <option value="light">☀️ Светлая</option>
+                    <option value="dark">🌙 Тёмная</option>
+                </select>
+                <button class="btn" onclick="openModal('loginModal')">Войти</button>
+                <button class="btn primary" onclick="openModal('registerModal')">Регистрация</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <div class="section-header">
+            <h1>Все вакансии</h1>
+            <span class="hint">5,247 вакансий</span>
+        </div>
+
+        <!-- Advanced Filters -->
+        <div class="advanced-filters">
+            <div class="filter-group">
+                <input type="text" class="filter-input" placeholder="Должность, ключевые слова или компания" id="mainSearch">
+            </div>
+            
+            <div class="filter-row">
+                <select id="categorySelect">
+                    <option value="">Все категории</option>
+                    <option value="it">IT & Разработка</option>
+                    <option value="design">Дизайн</option>
+                    <option value="marketing">Маркетинг</option>
+                    <option value="sales">Продажи</option>
+                </select>
+                
+                <select id="experienceSelect">
+                    <option value="">Любой опыт</option>
+                    <option value="intern">Стажёр</option>
+                    <option value="junior">Junior</option>
+                    <option value="middle">Middle</option>
+                    <option value="senior">Senior</option>
+                </select>
+                
+                <select id="employmentSelect">
+                    <option value="">Тип занятости</option>
+                    <option value="full">Полная занятость</option>
+                    <option value="part">Частичная занятость</option>
+                    <option value="remote">Удалённая работа</option>
+                    <option value="project">Проектная работа</option>
+                </select>
+                
+                <input type="text" placeholder="Город" id="cityInput">
+            </div>
+            
+            <div class="filter-row">
+                <span>Зарплата от:</span>
+                <input type="number" class="salary-input" placeholder="0" id="salaryFrom">
+                <span>до:</span>
+                <input type="number" class="salary-input" placeholder="500000" id="salaryTo">
+                <button class="btn primary" onclick="applyFilters()">Применить фильтры</button>
+                <button class="btn" onclick="resetFilters()">Сбросить</button>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div class="search-results-header">
+            <h3>Найдено вакансий: <span id="resultsCount">124</span></h3>
+            <select id="sortSelect">
+                <option value="relevance">По релевантности</option>
+                <option value="date">По дате</option>
+                <option value="salary_desc">По убыванию зарплаты</option>
+                <option value="salary_asc">По возрастанию зарплаты</option>
+            </select>
+        </div>
+
+        <!-- Vacancies List -->
+        <div class="vacancies" id="vacanciesList">
+            <!-- Vacancies will be loaded here by JavaScript -->
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading" id="loadingState">
+            <div class="spinner"></div>
+            <p>Загружаем вакансии...</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="vacancies.js"></script>
+</body>
+</html>
