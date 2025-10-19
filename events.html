@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мероприятия - CareerFinder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="avatar-preview">
+                    <div class="avatar-placeholder">💼</div>
+                </div>
+                <span class="brand-title">CareerFinder</span>
+            </a>
+            <nav>
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="vacancies.html" class="nav-link">Вакансии</a>
+                <a href="companies.html" class="nav-link">Компании</a>
+                <a href="events.html" class="nav-link active">Мероприятия</a>
+            </nav>
+            <div class="controls">
+                <select id="themeSelect">
+                    <option value="light">☀️ Светлая</option>
+                    <option value="dark">🌙 Тёмная</option>
+                </select>
+                <button class="btn" onclick="openModal('loginModal')">Войти</button>
+                <button class="btn primary" onclick="openModal('registerModal')">Регистрация</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <div class="section-header">
+            <h1>Карьерные мероприятия</h1>
+            <span class="hint">Предстоящие события и встречи</span>
+        </div>
+
+        <div class="events-grid">
+            <div class="event-card">
+                <h3>IT Career Day 2024</h3>
+                <div class="event-date">📅 15 декабря 2024, 10:00-18:00</div>
+                <div class="event-location">📍 Москва, Крокус Сити Холл</div>
+                <div class="event-speaker">👥 Участвуют: TechCorp, DataSoft, CloudSystems</div>
+                <p>Крупнейшая IT ярмарка вакансий с участием ведущих технологических компаний.</p>
+                <div class="event-actions">
+                    <button class="btn primary" onclick="showToast('Вы зарегистрированы на мероприятие!', 'success')">Зарегистрироваться</button>
+                    <span class="event-participants">👤 1,247 участников</span>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <h3>Digital Design Meetup</h3>
+                <div class="event-date">📅 20 декабря 2024, 19:00-21:00</div>
+                <div class="event-location">📍 Онлайн</div>
+                <div class="event-speaker">🎤 Спикеры: ведущие дизайнеры из DesignStudio</div>
+                <p>Встреча сообщества дизайнеров: тренды, кейсы, нетворкинг.</p>
+                <div class="event-actions">
+                    <button class="btn primary" onclick="showToast('Вы зарегистрированы на мероприятие!', 'success')">Зарегистрироваться</button>
+                    <span class="event-participants">👤 324 участника</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Компании - CareerFinder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="avatar-preview">
+                    <div class="avatar-placeholder">💼</div>
+                </div>
+                <span class="brand-title">CareerFinder</span>
+            </a>
+            <nav>
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="vacancies.html" class="nav-link">Вакансии</a>
+                <a href="companies.html" class="nav-link active">Компании</a>
+                <a href="events.html" class="nav-link">Мероприятия</a>
+            </nav>
+            <div class="controls">
+                <select id="themeSelect">
+                    <option value="light">☀️ Светлая</option>
+                    <option value="dark">🌙 Тёмная</option>
+                </select>
+                <button class="btn" onclick="openModal('loginModal')">Войти</button>
+                <button class="btn primary" onclick="openModal('registerModal')">Регистрация</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <div class="section-header">
+            <h1>Компании-партнёры</h1>
+            <span class="hint">1,247 компаний</span>
+        </div>
+
+        <div class="companies-grid">
+            <div class="company-card">
+                <h3>TechCorp</h3>
+                <div class="company-location">Москва, Санкт-Петербург, Екатеринбург</div>
+                <div class="company-industry">IT и разработка программного обеспечения</div>
+                <p>Крупная IT компания, специализирующаяся на enterprise решениях.</p>
+                <div class="company-stats">
+                    <span>👥 1000+ сотрудников</span>
+                    <span>💼 24 вакансии</span>
+                </div>
+            </div>
+
+            <div class="company-card">
+                <h3>DataSoft</h3>
+                <div class="company-location">Санкт-Петербург, удалённо</div>
+                <div class="company-industry">Аналитика данных и AI</div>
+                <p>Стартап в области машинного обучения и анализа больших данных.</p>
+                <div class="company-stats">
+                    <span>👥 50+ сотрудников</span>
+                    <span>💼 8 вакансий</span>
+                </div>
+            </div>
+
+            <div class="company-card">
+                <h3>DesignStudio</h3>
+                <div class="company-location">Москва, Казань</div>
+                <div class="company-industry">Дизайн и UX/UI</div>
+                <p>Студия дизайна, работающая с крупными брендами над digital продуктами.</p>
+                <div class="company-stats">
+                    <span>👥 25 сотрудников</span>
+                    <span>💼 5 вакансий</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
