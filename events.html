@@ -4,66 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мероприятия - CareerFinder</title>
+    <meta name="description" content="Карьерные мероприятия, ярмарки вакансий и конференции на CareerFinder. Развивайте свои навыки и находите новые возможности.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Перейти к основному содержанию</a>
+
+    <!-- Header -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <div class="avatar-preview">
-                    <div class="avatar-placeholder">💼</div>
+                <div class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 2L20 8H28L32 14V28C32 29.1046 31.1046 30 30 30H2C0.89543 30 0 29.1046 0 28V14L4 8H12L16 2Z" fill="url(#logoGradient)"/>
+                        <path d="M12 8H20L16 2L12 8Z" fill="white" fill-opacity="0.2"/>
+                        <path d="M4 8H28L32 14H0L4 8Z" fill="white" fill-opacity="0.3"/>
+                        <path d="M8 14V24H12V14M14 14V24H18V14M20 14V24H24V14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#2563eb"/>
+                                <stop offset="1" stop-color="#1d4ed8"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
                 </div>
                 <span class="brand-title">CareerFinder</span>
             </a>
+            
             <nav>
                 <a href="index.html" class="nav-link">Главная</a>
                 <a href="vacancies.html" class="nav-link">Вакансии</a>
                 <a href="companies.html" class="nav-link">Компании</a>
                 <a href="events.html" class="nav-link active">Мероприятия</a>
+                <a href="blog.html" class="nav-link">Блог</a>
             </nav>
-            <div class="controls">
-                <select id="themeSelect">
-                    <option value="light">☀️ Светлая</option>
-                    <option value="dark">🌙 Тёмная</option>
-                </select>
-                <button class="btn" onclick="openModal('loginModal')">Войти</button>
-                <button class="btn primary" onclick="openModal('registerModal')">Регистрация</button>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" onclick="openModal('loginModal')">Войти</button>
+                <button class="btn btn-primary" onclick="openModal('registerModal')">Регистрация</button>
             </div>
         </div>
     </header>
 
-    <main class="wrap">
-        <div class="section-header">
-            <h1>Карьерные мероприятия</h1>
-            <span class="hint">Предстоящие события и встречи</span>
-        </div>
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="wrap">
+            <div class="section-header">
+                <h1>Карьерные мероприятия</h1>
+                <p class="lead">Посещайте мероприятия для развития карьеры и знакомства с работодателями</p>
+            </div>
 
-        <div class="events-grid">
-            <div class="event-card">
-                <h3>IT Career Day 2024</h3>
-                <div class="event-date">📅 15 декабря 2024, 10:00-18:00</div>
-                <div class="event-location">📍 Москва, Крокус Сити Холл</div>
-                <div class="event-speaker">👥 Участвуют: TechCorp, DataSoft, CloudSystems</div>
-                <p>Крупнейшая IT ярмарка вакансий с участием ведущих технологических компаний.</p>
-                <div class="event-actions">
-                    <button class="btn primary" onclick="showToast('Вы зарегистрированы на мероприятие!', 'success')">Зарегистрироваться</button>
-                    <span class="event-participants">👤 1,247 участников</span>
+            <!-- Events Filter -->
+            <div class="events-filter">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">Все мероприятия</button>
+                    <button class="filter-tab" data-filter="online">Онлайн</button>
+                    <button class="filter-tab" data-filter="offline">Офлайн</button>
+                    <button class="filter-tab" data-filter="conference">Конференции</button>
+                    <button class="filter-tab" data-filter="workshop">Воркшопы</button>
                 </div>
             </div>
 
-            <div class="event-card">
-                <h3>Digital Design Meetup</h3>
-                <div class="event-date">📅 20 декабря 2024, 19:00-21:00</div>
-                <div class="event-location">📍 Онлайн</div>
-                <div class="event-speaker">🎤 Спикеры: ведущие дизайнеры из DesignStudio</div>
-                <p>Встреча сообщества дизайнеров: тренды, кейсы, нетворкинг.</p>
-                <div class="event-actions">
-                    <button class="btn primary" onclick="showToast('Вы зарегистрированы на мероприятие!', 'success')">Зарегистрироваться</button>
-                    <span class="event-participants">👤 324 участника</span>
-                </div>
+            <!-- Events Grid -->
+            <div class="events-grid" id="eventsContainer">
+                <!-- Events loaded by JavaScript -->
+            </div>
+
+            <!-- Load More -->
+            <div class="load-more-section">
+                <button class="btn btn-outline btn-full" data-load-more="events">Загрузить еще мероприятия</button>
             </div>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>CareerFinder</h4>
+                <p>Лучшая платформа для поиска работы и развития карьеры</p>
+            </div>
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <a href="index.html">Главная</a>
+                <a href="vacancies.html">Вакансии</a>
+                <a href="companies.html">Компании</a>
+                <a href="events.html">Мероприятия</a>
+                <a href="blog.html">Блог</a>
+            </div>
+            <div class="footer-section">
+                <h4>Работодателям</h4>
+                <a href="#">Разместить вакансию</a>
+                <a href="#">Регистрация компании</a>
+                <a href="#">Тарифы</a>
+            </div>
+            <div class="footer-section">
+                <h4>Контакты</h4>
+                <a href="mailto:info@careerfinder.ru">info@careerfinder.ru</a>
+                <a href="tel:+78001234567">8 (800) 123-45-67</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CareerFinder. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="loginModal" class="modal">
+        <h3>Вход в аккаунт</h3>
+        <form id="loginForm">
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Пароль" required>
+            <div class="form-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('loginModal')">Отмена</button>
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <h3>Регистрация</h3>
+        <form id="registerForm">
+            <input type="text" placeholder="Имя и фамилия" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Пароль" required minlength="6">
+            <input type="text" placeholder="Профессия" required>
+            <div class="form-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('registerModal')">Отмена</button>
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
     <script src="script.js"></script>
 </body>
