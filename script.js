@@ -104,21 +104,3 @@ function searchJobs() {
         }
     }
 }
-
-// Функции авторизации (заглушки)
-function login() {
-    showToast('Вход выполнен успешно!', 'success');
-    closeModal('loginModal');
-    // В реальном приложении здесь была бы проверка учетных данных
-}
-
-function register() {
-    showToast('Регистрация прошла успешно!', 'success');
-    closeModal('registerModal');
-    // В реальном приложении здесь была бы отправка формы
-}
-
-function applyToJob() {
-    showToast('Отклик отправлен!', 'success');
-    closeModal('applyModal');
-}

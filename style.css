@@ -1304,3 +1304,123 @@ body.dark .response-message {
     right: -100%;
   }
 }
+/* Логотип */
+.logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+}
+
+.logo-icon svg {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Меню пользователя */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text);
+}
+
+.user-menu span {
+    font-weight: 500;
+}
+
+/* Выбор типа пользователя */
+.user-type-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    background: var(--accent-light);
+    padding: 4px;
+    border-radius: var(--radius);
+}
+
+.user-type-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.user-type-btn.active {
+    background: var(--accent);
+    color: white;
+}
+
+/* Формы регистрации */
+#jobseekerForm,
+#employerForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Дополнительные стили для модальных окон */
+.modal textarea {
+    min-height: 80px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* Адаптивность для пользовательского меню */
+@media (max-width: 768px) {
+    .user-menu {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .user-type-selector {
+        flex-direction: column;
+    }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal.show {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Улучшенный hero section */
+.hero-illus {
+    background: linear-gradient(135deg, #e8f3fb, #ffffff);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-illus::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(45, 139, 207, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(20, 67, 107, 0.1) 0%, transparent 50%);
+}
+
+.hero-illus::after {
+    content: '💼';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    opacity: 0.1;
+}
