@@ -1,24 +1,37 @@
-# CareerFinder 🚀
+# CareerFinder - Modern Job Search Platform
 
-Современная платформа для поиска работы с чистым и отзывчивым дизайном.
+![CareerFinder](https://img.shields.io/badge/Version-1.0.0-blue)
+![Python](https://img.shields.io/badge/Python-3.9-green)
+![React](https://img.shields.io/badge/React-18.2-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13-blue)
 
-## 🌟 Особенности
+A modern job search platform similar to hh.ru, built with Flask backend and React frontend.
 
-- **Умный поиск** - Найдите идеальные вакансии за минуты
-- **Прямые контакты** - Общайтесь напрямую с работодателями
-- **Тёмная тема** - Комфортная работа в любое время суток
-- **Адаптивный дизайн** - Отлично выглядит на всех устройствах
-- **Фильтрация** - Расширенные фильтры для точного поиска
+## 🚀 Features
 
-## 🛠 Технологии
+- **Job Seekers**: Search vacancies, apply to jobs, manage profile
+- **Employers**: Post vacancies, manage applications, find candidates  
+- **Modern Stack**: React.js, Flask, PostgreSQL, Docker
+- **Production Ready**: Dockerized, Nginx, CI/CD
 
-- **HTML5** - Семантическая разметка
-- **CSS3** - Современные стили с CSS Variables
-- **JavaScript (ES6+)** - Интерактивность и логика
-- **Git** - Контроль версий
+## 🛠 Tech Stack
 
-## 🚀 Быстрый старт
+**Backend**: Python Flask, SQLAlchemy, JWT, PostgreSQL, Redis  
+**Frontend**: React 18, React Router, Axios, Vite  
+**Infrastructure**: Docker, Nginx, GitHub Actions
 
-1. Клонируйте репозиторий:
+## 📦 Quick Start
+
+### Development
 ```bash
-git clone https://github.com/your-username/CareerFinder.git
+# Backend
+cd backend
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python run.py
+
+# Frontend (new terminal)
+cd frontend
+npm install
+npm run dev
