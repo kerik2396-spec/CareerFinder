@@ -34,3 +34,17 @@ app.use((req, res) => {
 });
 
 module.exports = app;
+// Добавьте новые маршруты в App.js
+import VacancyList from './components/Vacancies/VacancyList';
+import CreateVacancy from './components/Vacancies/CreateVacancy';
+
+// В компоненте Routes добавьте:
+<Route path="/vacancies" element={<VacancyList />} />
+<Route 
+    path="/vacancies/create" 
+    element={
+        <ProtectedRoute>
+            <CreateVacancy />
+        </ProtectedRoute>
+    } 
+/>

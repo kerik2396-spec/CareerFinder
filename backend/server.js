@@ -1,95 +1,77 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
-
 const app = express();
 
-// Middleware
 app.use(cors());
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.json());
 
-// Connect to MongoDB
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/careerfinder';
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('✅ MongoDB подключена успешно'))
-.catch(err => console.error('❌ Ошибка подключения к MongoDB:', err));
+// Mock данные для тестирования
+const users = [];
+const vacancies = [
+  {
+    id: 1,
+    title: "Frontend Developer",
+    companyName: "Tech Company",
+    location: "Moscow",
+    salary: "100000-150000",
+    employmentType: "FULL_TIME",
+    experienceLevel: "MIDDLE",
+    description: "We are looking for a skilled Frontend Developer...",
+    skills: "JavaScript, React, HTML, CSS",
+    contactEmail: "hr@techcompany.com",
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: 2,
+    title: "Backend Developer", 
+    companyName: "Startup Inc",
+    location: "Remote",
+    salary: "120000-180000",
+    employmentType: "REMOTE",
+    experienceLevel: "SENIOR",
+    description: "Join our backend team to build amazing APIs...",
+    skills: "Java, Spring Boot, PostgreSQL",
+    contactEmail: "jobs@startup.com",
+    createdAt: new Date().toISOString()
+  }
+];
 
-// Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/users', require('./routes/users'));
-app.use('/api/vacancies', require('./routes/vacancies'));
-app.use('/api/companies', require('./routes/companies'));
-app.use('/api/applications', require('./routes/applications'));
-app.use('/api/payments', require('./routes/payments'));
-app.use('/api/analytics', require('./routes/analytics'));
+// Auth endpoints
+app.post('/api/auth/register', (req, res) => {
+  const { email, password, firstName, lastName } = req.body;
+  const user = { id: users.length + 1, email, firstName, lastName };
+  users.push(user);
+  res.json({ message: "User registered successfully" });
+});
 
-// Health check
-app.get('/api/health', (req, res) => {
+app.post('/api/auth/login', (req, res) => {
+  const { email, password } = req.body;
   res.json({ 
-    status: 'OK', 
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development'
+    token: "mock-jwt-token", 
+    email: email,
+    role: "ROLE_USER"
   });
 });
 
-// Serve frontend in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/dist')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-  });
-}
+// Vacancies endpoints
+app.get('/api/vacancies', (req, res) => {
+  res.json(vacancies);
+});
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error('🚨 Ошибка сервера:', err.stack);
-  
-  if (err.name === 'ValidationError') {
-    return res.status(400).json({
-      success: false,
-      message: 'Ошибка валидации данных',
-      errors: Object.values(err.errors).map(e => e.message)
-    });
+app.get('/api/vacancies/:id', (req, res) => {
+  const vacancy = vacancies.find(v => v.id === parseInt(req.params.id));
+  if (vacancy) {
+    res.json(vacancy);
+  } else {
+    res.status(404).json({ message: "Vacancy not found" });
   }
-  
-  if (err.name === 'CastError') {
-    return res.status(400).json({
-      success: false,
-      message: 'Неверный формат ID'
-    });
-  }
-  
-  res.status(err.status || 500).json({
-    success: false,
-    message: process.env.NODE_ENV === 'production' 
-      ? 'Внутренняя ошибка сервера' 
-      : err.message
-  });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({
-    success: false,
-    message: 'API endpoint не найден'
-  });
+app.get('/api/vacancies/stats/count', (req, res) => {
+  res.json(vacancies.length);
 });
 
-const PORT = process.env.PORT || 5000;
-
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`🚀 Сервер запущен на порту ${PORT}`);
-  console.log(`📊 Режим: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔗 API доступно по: http://localhost:${PORT}/api`);
+  console.log(`Server running on port ${PORT}`);
 });
-
-module.exports = app;
